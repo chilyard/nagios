@@ -1,4 +1,7 @@
 #!/bin/sh 
+# 
+# Check the Stornext metadata controller's API (SNAPI) and verify they're running.  There's also a VIP associated w/ the SNAPI.
+# The VIP is in DNS: burb-snmd-vip.dev.vubiquity.com
 
 # Nagios standard return codes
 # 0 - OK
