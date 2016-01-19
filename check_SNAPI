@@ -7,9 +7,14 @@
 # 3 - Unknown
 
 # Nagios plugin dir
-PLUGIN="/usr/local/nagios/libexec"
+PLUGINDIR="/usr/local/nagios/libexec"
 
-
+if [ -d ${PLUGINDIR} ]
+	then :
+	
+	else echo "plugin directory missing"
+	exit
+fi
 
 
 # parse arguments
@@ -23,7 +28,7 @@ getopts "h:" opt
         esac
 
 
-output=`/usr/bin/curl --header "Content-Type: text/xml;charset=UTF-8" -s --header "SOAPAction: getSNAPIVersion" --data @check_SNAPI.soap http://$host:81/axis2/services/stornext |grep -e '^SNAPI Version'`
+output=`/usr/bin/curl --header "Content-Type: text/xml;charset=UTF-8" -s --header "SOAPAction: getSNAPIVersion" --data @${PLUGINDIR}/check_SNAPI.soap http://$host:81/axis2/services/stornext |grep -e '^SNAPI Version'`
 
 if [ $? -eq 0 ]
 	then 
