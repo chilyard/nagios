@@ -1,0 +1,8 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:stor="http://www.quantum.com/stornext/">
+	<soapenv:Header/>
+		<soapenv:Body>
+			<stor:getSNAPIVersion>
+			<in></in>
+			</stor:getSNAPIVersion>
+		</soapenv:Body>
+</soapenv:Envelope>

@@ -1,0 +1,38 @@
+#!/bin/sh 
+
+# Nagios standard return codes
+# 0 - OK
+# 1 - Warning
+# 2 - Critical
+# 3 - Unknown
+
+# Nagios plugin dir
+PLUGIN="/usr/local/nagios/libexec"
+
+
+
+
+# parse arguments
+getopts "h:" opt
+        case $opt in
+                h)      host=$OPTARG ;;
+                \?)     echo "Syntax: -h FQDN"
+                exit 3 ;;
+                *)      echo "Must supply FQDN"
+                        exit;;
+        esac
+
+
+output=`/usr/bin/curl --header "Content-Type: text/xml;charset=UTF-8" -s --header "SOAPAction: getSNAPIVersion" --data @check_SNAPI.soap http://$host:81/axis2/services/stornext |grep -e '^SNAPI Version'`
+
+if [ $? -eq 0 ]
+	then 
+	echo "OK - ${output}"
+	exit 0
+
+	else 
+	echo "Critical - ${output}"
+	exit 2
+fi
+
+
